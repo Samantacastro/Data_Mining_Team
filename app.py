@@ -39,10 +39,13 @@ if st.button("🚀 Generate Code"):
 
             if response.status_code == 200:
                 result = response.json()
-                code = result.get("output", "No output returned.")
-                st.subheader("💡 Generated Code")
-                st.code(code, language='python')
+                try:
+                    code = result["output"]["choices"][0]["text"]
+                    st.subheader("💡 Generated Code")
+                    st.code(code, language='python')
+                except Exception as e:
+                    st.error("Something went wrong while parsing the result.")
+                    st.json(result)
             else:
                 st.error(f"❌ Request failed with status code {response.status_code}")
                 st.json(response.json())
-
