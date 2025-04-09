@@ -30,7 +30,8 @@ if st.button("🚀 Generate Code"):
             }
 
             response = requests.post(
-                "https://api.together.xyz/v1/completions",
+    "https://api.together.xyz/inference",
+
                 headers=headers,
                 json=data
             )
