@@ -22,24 +22,26 @@ if st.button("🚀 Generate Code"):
                 "Content-Type": "application/json"
             }
 
-            data = {
+            payload = {
                 "model": "togethercomputer/CodeLlama-13b-Instruct",
                 "prompt": prompt,
                 "max_tokens": 256,
-                "temperature": 0.5
+                "temperature": 0.7,
+                "top_p": 0.9,
+                "repetition_penalty": 1.2
             }
 
             response = requests.post(
-    "https://api.together.xyz/inference",
-
+                "https://api.together.xyz/inference",
                 headers=headers,
-                json=data
+                json=payload
             )
 
             if response.status_code == 200:
                 result = response.json()
-                code = result.get('output', {}).get('choices', [{}])[0].get('text', 'No code found.')
+                code = result.get("output", "No output returned.")
                 st.subheader("💡 Generated Code")
                 st.code(code, language='python')
             else:
-                st.error(f"Request failed with status code {response.status_code}")
+                st.error(f"❌ Request failed with status code {response.status_code}")
+                st.json(response.json())
