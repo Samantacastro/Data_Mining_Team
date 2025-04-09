@@ -23,7 +23,7 @@ if st.button("🚀 Generate Code"):
             }
 
             payload = {
-                "model": "togethercomputer/CodeLlama-13b-Instruct",
+                "model": "mistralai/Mistral-7B-Instruct-v0.1",
                 "prompt": prompt,
                 "max_tokens": 256,
                 "temperature": 0.7,
@@ -45,3 +45,4 @@ if st.button("🚀 Generate Code"):
             else:
                 st.error(f"❌ Request failed with status code {response.status_code}")
                 st.json(response.json())
+
